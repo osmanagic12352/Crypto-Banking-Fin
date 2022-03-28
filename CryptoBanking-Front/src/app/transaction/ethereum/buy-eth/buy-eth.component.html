@@ -1,0 +1,40 @@
+<form #form="ngForm" (submit)="onSubmitE(form)" novalidate>
+    <input type="hidden" name="id" value="service.formData.id" />
+    <div class="form-group">
+        <label>
+            <h3 style="color: black;">Količina</h3>
+        </label>
+        <input type="text" class="form-control form-control-lg" pattern="[0-9]*"
+            placeholder="Upišite koliko želite kupiti" name="amount" #amount="ngModel"
+            [(ngModel)]="service.formDataEk.amount" [class.invalid]="amount.invalid && amount.touched" required>
+        <span class="help-block" *ngIf="amount.errors?.pattern">*Samo brojevi dozvoljeni!<br></span>
+        <span class="help-block" *ngIf="amount.invalid && amount.touched">*Upišite količinu koju ćelite kupiti!</span>
+    </div><br>
+    <div class="form-group">
+        <label>
+            <h3 style="color: black;">Konačna cijena</h3>
+        </label>
+        <input type="text" class="form-control form-control-lg" name="currentPrice"
+            value="{{(coinPrice*1.02*1.75*service.formDataEk.amount).toFixed(2) || 0}}KM" disabled>
+    </div><br>
+    <div class="form-group">
+        <label>
+            <h3 style="color: black;">Crypto Adresa</h3>
+        </label>
+        <input type="text" class="form-control form-control-lg" placeholder="Vaša kripto adresa" name="cryptoAdress"
+            [class.invalid]="cryptoAdress.invalid && cryptoAdress.touched" #cryptoAdress="ngModel"
+            [(ngModel)]="service.formDataEk.cryptoAdress" required>
+        <span class="help-block" *ngIf="amount.invalid && amount.touched">*Upišite svoju Crypto adresu!</span>
+    </div><br>
+    <div class="form-group">
+        <label>
+            <h3 style="color: black;">Želite li koristiti ovu karticu?</h3>
+        </label>
+        <p class="form-control form-control-lg"><u>{{cardDetails.cardNumber}}</u></p><a routerLink="/one-user/one1-card"
+            class="change-card">Zamjeni karticu</a>
+    </div><br>
+    <div class="form-group">
+        <button class="btn btn-secondary btn-lg btn-block" type="submit" [disabled]="form.invalid">CONFIRM</button>
+    </div>
+    <br>
+</form>
